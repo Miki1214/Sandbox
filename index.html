@@ -1,51 +1,84 @@
+<!-- BEGIN:Do not touch -->
+<div id="AppleRepresentation"></div>
+<div id="Spacer" style="white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;">
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</div>
+<div id="AppleRepresentationAfterRipening"></div>
 <script>
-var Harvested=Harvest(3);
-console.log("Freshly harvested:");
-DisplayStatusesOfTheApplesFromTheList(Harvested);
+    //END:Do not touch
 
-RipenThisApple(Harvested[1]);
-RipenAllApplesFromList(Harvested);
 
-console.log("After ripening process:");
-DisplayStatusesOfTheApplesFromTheList(Harvested);
+    
+  var Harvested = Harvest(3);
+  console.log("Freshly harvested:");
+  DisplayStatusesOfTheApplesFromTheList(Harvested);
+  HandleImages(Harvested,"AppleRepresentation");
 
-function Harvest(ilosc)
-{
-  var listaJablek = [];       
-  for (i = 0; i < ilosc; i++) {
-            var noweJablko = {numer:i,status:"green"};
-            listaJablek.push(noweJablko)
-        }
-        return listaJablek;
-}
+  RipenApple(Harvested[1]);
+  RipenAllApplesFromList(Harvested);
+  
 
-function RipenAllApplesFromList(listaJablek)
-{
-  listaJablek.forEach(jablko => {
-    RipenThisApple(jablko);
-  });
-}
+  console.log("After ripening process:");
+  DisplayStatusesOfTheApplesFromTheList(Harvested);
 
-function RipenThisApple(jablko)
-{
-  if (jablko.status == "green") {
-    jablko.status = "ripe";
-  } else {
-    jablko.status = "rotten";
+  //BEGIN:Do not touch
+  HandleImages(Harvested,"AppleRepresentationAfterRipening");
+  //END:Do not touch
+
+
+  function Harvest(ilosc) {
+    var apples = [];
+    for (i = 0; i < ilosc; i++) {
+      var newApple = { number: i, status: "green" };
+      apples.push(newApple)
+    }
+    return apples;
   }
-}
 
-function DisplayStatus(jablko)
-{
-  console.log(jablko.numer);
-  console.log(jablko.status);
-  console.log("------------");
-}
+  function RipenAllApplesFromList(apples) {
+    apples.forEach(apple => {
+      RipenApple(apple);
+    });
+  }
 
-function DisplayStatusesOfTheApplesFromTheList(listaJablek)
-{
-  listaJablek.forEach(jablko => {
-  DisplayStatus(jablko);
-});
-}
+  function RipenApple(apple) {
+    if (apple.status == "green") {
+      apple.status = "ripe";
+    } else {
+      apple.status = "rotten";
+    }
+  }
+
+  function DisplayStatusesOfTheApplesFromTheList(apples) {
+    apples.forEach(apple => {
+      DisplayStatus(apple);
+    });    
+  }
+
+  function DisplayStatus(apple) {
+    console.log(apple.number);
+    console.log(apple.status);
+    console.log("------------");
+  }
+
+
+  function HandleImages(apples,divID) {
+    apples.forEach(apple => {  
+    var img = document.createElement('img');
+    img.width=200;
+    img.height=200;
+    if (apple.status == "green") {
+      img.src = "zielone-jabłko.png";
+    } else if (apple.status == "ripe") {
+      img.src = "jablko01.jpg";
+    }else
+    {
+      img.src = "zgniłe-jabłko-93162755.jpg"
+    }
+    document.getElementById(divID).appendChild(img);
+  });  
+  }
 </script>
+
